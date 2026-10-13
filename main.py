@@ -1,37 +1,21 @@
 import pygame
 import random
+from Cat import Falling_cat, Falling_cat_x, Falling_cat_y, Falling_cat_vel_x, Falling_cat_vel_y
+from Player import player, player_x, player_y, player_vel_x, player_vel_y
+from collision import collision_detection
 pygame.init()
 
 window = pygame.display.set_mode((800, 600))
 
-player_x = 0
-player_y = 0
-player_vel_x = 0
-player_vel_y = 0
-
-player = pygame.Surface((75, 75))
-player.fill((0, 0, 0))
 player = pygame.image.load("Player.png").convert_alpha()
 player = pygame.transform.scale(player, (150, 150))
-
-Falling_cat_x = 500
-Falling_cat_y = -100
-Falling_cat_vel_x = 0
-Falling_cat_vel_y = 0.1
-
-Falling_cat = pygame.Surface((50, 50))
-Falling_cat.fill((0, 0, 0))
+# made the player look like a person rather than just a boring box
 Falling_cat = pygame.image.load("Kitty.png").convert_alpha()
 Falling_cat = pygame.transform.scale(Falling_cat, (100, 100))
+# Gave the kitty an image so it wont look like a box
 
 
 game_state = 1
-
-def collision_detection():
-    return (player_x <= (Falling_cat_x + int(Falling_cat.width)) and
-            (player_x + player.width) >= Falling_cat_x and
-            player_y <= (Falling_cat_y + Falling_cat.height + 5) and
-            (player_y + player.height) >= Falling_cat_y)
 
 while True:
     for event in pygame.event.get():
@@ -55,7 +39,7 @@ while True:
             player_vel_y = 0
 
     if game_state == 1:
-        if collision_detection():
+        if collision_detection(player_x, player_y, player, Falling_cat_x, Falling_cat_y, Falling_cat):
             game_state = 2
 
 
