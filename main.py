@@ -59,8 +59,6 @@ start_time = pygame.time.get_ticks()
 Quote = ("Skill Issue Noob..")
 Jumping = False
 
-SpawnArea = random.randint(0, 700)
-
 while True:
     
     current_time = pygame.time.get_ticks()
@@ -88,11 +86,11 @@ while True:
         window_height = window.get_height()
         if Falling_cat_y > window_height:
             Falling_cat_y = -50
-            Falling_cat_x = SpawnArea
+            Falling_cat_x = random.randint(0, 700)
 
         if Falling_dog_y > window_height:
             Falling_dog_y = -50
-            Falling_dog_x = SpawnArea       
+            Falling_dog_x = random.randint(0, 700)      
 
         player_x += player_vel_x # Updates the Player X pos (Need to place this note here cuz i keep losing it haha)
         player_y += player_vel_y # Updates the Player Y Pos
@@ -115,14 +113,14 @@ while True:
             print(Lives)
 
             Falling_dog_y = -100
-            Falling_dog_x = SpawnArea
+            Falling_dog_x = random.randint(0, 700)
 
         elif cat_collision.cat_collision_detection(PlayerHitbox, FallingCatHitbox):
             Lives -= 1
             print(Lives)
 
             Falling_cat_y = -100
-            Falling_cat_x = SpawnArea
+            Falling_cat_x = random.randint(0, 700)
 
         if Lives < 1:
             game_state = 2
