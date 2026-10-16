@@ -5,6 +5,18 @@ import Animation_Time
 import cat_collision
 import dog_collision
 import Hitbox
+
+import os
+import sys
+
+def resource_path(path):
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    return os.path.join(base_path, path)
+
 from Cat import Falling_cat, Falling_cat_x, Falling_cat_y, Falling_cat_vel_x, Falling_cat_vel_y
 from PlayerSystem import player, player_x, player_y, player_vel_x, player_vel_y
 from Dog import Falling_dog, Falling_dog_x, Falling_dog_y, Falling_dog_vel_x, Falling_dog_vel_y
@@ -12,7 +24,7 @@ pygame.init()
 
 window = pygame.display.set_mode((800, 600))
 
-background = pygame.image.load("img/Background.png").convert_alpha()
+background = pygame.image.load(resource_path("Background.png")).convert_alpha()
 background = pygame.transform.scale(background, (800, 600))
 
 white_background = pygame.Surface((800, 600))
@@ -21,28 +33,28 @@ white_background.blit(background, (0, 0))
 
 background = white_background
 
-playerFrame1 = pygame.image.load("img/PlayerFrame1.png").convert_alpha()
+playerFrame1 = pygame.image.load(resource_path("PlayerFrame1.png")).convert_alpha()
 playerFrame1 = pygame.transform.scale(playerFrame1, (200, 200))
-playerFrame2 = pygame.image.load("img/PlayerFrame2.png").convert_alpha() 
+playerFrame2 = pygame.image.load(resource_path("PlayerFrame2.png")).convert_alpha() 
 playerFrame2 = pygame.transform.scale(playerFrame2, (200, 200))
 
-clockFrame1 = pygame.image.load("img/ClockFrame1.png").convert_alpha()
+clockFrame1 = pygame.image.load(resource_path("ClockFrame1.png")).convert_alpha()
 clockFrame1 = pygame.transform.scale(clockFrame1, (100, 100))
-clockFrame2 = pygame.image.load("img/ClockFrame2.png").convert_alpha()
+clockFrame2 = pygame.image.load(resource_path("ClockFrame2.png")).convert_alpha()
 clockFrame2 = pygame.transform.scale(clockFrame2, (100, 100))
 
 
 player = pygame.transform.scale(player, (300, 300))
 # made the player look like a person rather than just a boring box
-Falling_cat = random.choice([pygame.image.load("img/Kitty1.png").convert_alpha(), pygame.image.load("img/Kitty2.png").convert_alpha(), pygame.image.load("img/Kitty3.png").convert_alpha()])
+Falling_cat = random.choice([pygame.image.load(resource_path("Kitty1.png")).convert_alpha(), pygame.image.load(resource_path("Kitty2.png")).convert_alpha(), pygame.image.load(resource_path("Kitty3.png")).convert_alpha()])
 Falling_cat = pygame.transform.scale(Falling_cat, (100, 100))
 # Gave the kitty an image so it wont look like a box
-Falling_dog = random.choice([pygame.image.load("img/Doggy1.png").convert_alpha(), pygame.image.load("img/Doggy2.png").convert_alpha(), pygame.image.load("img/Doggy3.png").convert_alpha()])
+Falling_dog = random.choice([pygame.image.load(resource_path("Doggy1.png")).convert_alpha(), pygame.image.load(resource_path("Doggy2.png")).convert_alpha(), pygame.image.load(resource_path("Doggy3.png")).convert_alpha()])
 Falling_dog = pygame.transform.scale(Falling_dog, (100, 100))
 
-HPcardframe1 = pygame.image.load("img/LifeCardFrame1.png").convert_alpha()
+HPcardframe1 = pygame.image.load(resource_path("LifeCardFrame1.png")).convert_alpha()
 HPcardframe1 = pygame.transform.scale(HPcardframe1, (100, 100))
-HPcardframe2 = pygame.image.load("img/LifeCardFrame2.png").convert_alpha()
+HPcardframe2 = pygame.image.load(resource_path("LifeCardFrame2.png")).convert_alpha()
 HPcardframe2 = pygame.transform.scale(HPcardframe2, (100, 100))
 
 HPcardframes = [HPcardframe1, HPcardframe2]
@@ -146,7 +158,7 @@ while True:
         window.fill((200, 0, 0)) # Game over red background
         Game_over_text = font.render("Game over", True, (255, 255, 255))
         Chosen_quote = font.render(Quote, True, (255, 255, 255))
-        Trollface = pygame.image.load("img/Trollface.png").convert_alpha()
+        Trollface = pygame.image.load(resource_path("Trollface.png")).convert_alpha()
         Trollface = pygame.transform.scale(Trollface, (200, 200))
         window.blit(Trollface, (250, 350))
         window.blit(Chosen_quote, (250, 300))
