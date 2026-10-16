@@ -101,10 +101,10 @@ while True:
         FallingDogHitbox = pygame.Rect(Falling_dog_x, Falling_dog_y, 40, 40)
 
         if dog_collision_detection(PlayerHitbox, FallingDogHitbox):
-            game_state == 2
+            game_state = 2
             
         elif cat_collision_detection(PlayerHitbox, FallingCatHitbox):
-            game_state == 2
+            game_state = 2
 
         window.blit(background, (0, 0))
         window.blit(playerframes[frame], (player_x, player_y))
