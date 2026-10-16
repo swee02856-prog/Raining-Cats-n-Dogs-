@@ -134,11 +134,14 @@ while True:
         window.blit(GameTimer, (600, 25))
         window.blit(clockframes[Animation_Time.clockframe], (500, 0))
         
-        HealthCard3 = window.blit(HPcardframes[Animation_Time.clockframe], (180, 500))
-        
-        HealthCard2 = window.blit(HPcardframes[Animation_Time.clockframe], (100, 500))
-       
-        HealthCard1 = window.blit(HPcardframes[Animation_Time.clockframe], (20, 500))
+        if Lives >= 1:
+            window.blit(HPcardframes[Animation_Time.clockframe], (10, 500))
+
+        if Lives >= 2:
+            window.blit(HPcardframes[Animation_Time.clockframe], (90, 500))
+
+        if Lives >= 3:
+            window.blit(HPcardframes[Animation_Time.clockframe], (170, 500))
 
 
     elif game_state == 2:
