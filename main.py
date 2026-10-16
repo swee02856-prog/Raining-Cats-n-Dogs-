@@ -24,6 +24,12 @@ playerFrame1 = pygame.transform.scale(playerFrame1, (200, 200))
 playerFrame2 = pygame.image.load("img/PlayerFrame2.png").convert_alpha() 
 playerFrame2 = pygame.transform.scale(playerFrame2, (200, 200))
 
+clockFrame1 = pygame.image.load("img/ClockFrame1.png").convert_alpha()
+clockFrame1 = pygame.transform.scale(clockFrame1, (100, 100))
+clockFrame2 = pygame.image.load("img/ClockFrame2.png").convert_alpha()
+clockFrame2 = pygame.transform.scale(clockFrame2, (100, 100))
+
+
 player = pygame.transform.scale(player, (300, 300))
 # made the player look like a person rather than just a boring box
 Falling_cat = random.choice([pygame.image.load("img/Kitty1.png").convert_alpha(), pygame.image.load("img/Kitty2.png").convert_alpha(), pygame.image.load("img/Kitty3.png").convert_alpha()])
@@ -34,19 +40,23 @@ Falling_dog = pygame.transform.scale(Falling_dog, (100, 100))
 
 game_state = 1
 
-frames = [playerFrame1, playerFrame2]
+playerframes = [playerFrame1, playerFrame2]
+clockframes = [clockFrame1, clockFrame2]
 frame = 0
 timer = 0
+
+clockframe = 0
+clockframetimer = 0
 
 font = pygame.font.SysFont("Arial", 36)
 start_time = pygame.time.get_ticks()
 
-Quotes = ["Game Sucks, Not you..", "Watch your head next time!", "Ay, you good bro?", "Sucks to be you...", "You died... Shocker..", "Skill issue", "The Game cheated..Lol", "Try again.. If you dare"]
-
+Quote = ("Skill Issue Noob..")
 Jumping = False
 while True:
     current_time = pygame.time.get_ticks()
     elapsed_time = (current_time - start_time) // 1000
+    GameTimer = font.render(str(elapsed_time), True, (255, 255, 255))
 
     for event in pygame.event.get():
 
@@ -91,21 +101,23 @@ while True:
         FallingDogHitbox = pygame.Rect(Falling_dog_x, Falling_dog_y, 40, 40)
 
         if dog_collision_detection(PlayerHitbox, FallingDogHitbox):
-            game_state = 2
-                
+            game_state == 2
+            
         elif cat_collision_detection(PlayerHitbox, FallingCatHitbox):
-            game_state = 2
-        
+            game_state == 2
+
         window.blit(background, (0, 0))
-        window.blit(frames[frame], (player_x, player_y))
+        window.blit(playerframes[frame], (player_x, player_y))
         window.blit(Falling_cat, (Falling_cat_x, Falling_cat_y))
         window.blit(Falling_dog, (Falling_dog_x, Falling_dog_y))
+        window.blit(GameTimer, (600, 25))
+        window.blit(clockframes[clockframe], (500, 0))
 
     elif game_state == 2:
         window.fill((200, 0, 0)) # Game over red background
         Game_over_text = font.render("Game over", True, (255, 255, 255))
-        Random_Game_over_quote  = random.choice(Quotes)
-        Chosen_quote = font.render(Random_Game_over_quote, True, (255, 255, 255))
+        Chosen_quote = font.render(Quote, True, (255, 255, 255))
+
         window.blit(Chosen_quote, (250, 300))
         window.blit(Game_over_text, (300, 250))
         player_vel_x = 0
@@ -114,12 +126,19 @@ while True:
         Falling_cat_vel_y = 0
         Falling_dog_vel_x = 0
         Falling_dog_vel_y = 0
+        
 
     timer += 1
 
     if timer >= 450:
         frame = 1 - frame
         timer = 0
+
+
+    clockframetimer += 1
+    if clockframetimer >= 2600:
+        clockframe = 1 - clockframe
+        clockframetimer = 0
 
     pygame.display.flip()
 
