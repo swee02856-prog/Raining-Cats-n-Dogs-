@@ -1,11 +1,13 @@
 import pygame
 import random
 import time
+import Animation_Time
+import cat_collision
+import dog_collision
+import Hitbox
 from Cat import Falling_cat, Falling_cat_x, Falling_cat_y, Falling_cat_vel_x, Falling_cat_vel_y
 from PlayerSystem import player, player_x, player_y, player_vel_x, player_vel_y
 from Dog import Falling_dog, Falling_dog_x, Falling_dog_y, Falling_dog_vel_x, Falling_dog_vel_y
-from cat_collision import cat_collision_detection
-from dog_collision import dog_collision_detection
 pygame.init()
 
 window = pygame.display.set_mode((800, 600))
@@ -42,11 +44,6 @@ game_state = 1
 
 playerframes = [playerFrame1, playerFrame2]
 clockframes = [clockFrame1, clockFrame2]
-frame = 0
-timer = 0
-
-clockframe = 0
-clockframetimer = 0
 
 font = pygame.font.SysFont("Arial", 36)
 start_time = pygame.time.get_ticks()
@@ -88,30 +85,31 @@ while True:
         player_x += player_vel_x # Updates the Player X pos (Need to place this note here cuz i keep losing it haha)
         player_y += player_vel_y # Updates the Player Y Pos
 
-        PlayerHitbox = pygame.Rect(player_x, player_y, 75, 75)
-
         Falling_cat_x += Falling_cat_vel_x
         Falling_cat_y += Falling_cat_vel_y
-
-        FallingCatHitbox = pygame.Rect(Falling_cat_x, Falling_cat_y, 40, 40)
 
         Falling_dog_x += Falling_dog_vel_x
         Falling_dog_y += Falling_dog_vel_y
 
-        FallingDogHitbox = pygame.Rect(Falling_dog_x, Falling_dog_y, 40, 40)
+        PlayerHitbox = Hitbox.PlayersHitbox(player_x, player_y)
 
-        if dog_collision_detection(PlayerHitbox, FallingDogHitbox):
+        FallingCatHitbox = Hitbox.CatHitbox(Falling_cat_x, Falling_cat_y)
+
+        FallingDogHitbox = Hitbox.DogHitbox(Falling_dog_x, Falling_dog_y)
+
+
+        if dog_collision.dog_collision_detection(PlayerHitbox, FallingDogHitbox):
             game_state = 2
-            
-        elif cat_collision_detection(PlayerHitbox, FallingCatHitbox):
+
+        elif cat_collision.cat_collision_detection(PlayerHitbox, FallingCatHitbox):
             game_state = 2
 
         window.blit(background, (0, 0))
-        window.blit(playerframes[frame], (player_x, player_y))
+        window.blit(playerframes[Animation_Time.frame], (player_x, player_y))
         window.blit(Falling_cat, (Falling_cat_x, Falling_cat_y))
         window.blit(Falling_dog, (Falling_dog_x, Falling_dog_y))
         window.blit(GameTimer, (600, 25))
-        window.blit(clockframes[clockframe], (500, 0))
+        window.blit(clockframes[Animation_Time.clockframe], (500, 0))
 
     elif game_state == 2:
         window.fill((200, 0, 0)) # Game over red background
@@ -128,17 +126,9 @@ while True:
         Falling_dog_vel_y = 0
         
 
-    timer += 1
-
-    if timer >= 450:
-        frame = 1 - frame
-        timer = 0
-
-
-    clockframetimer += 1
-    if clockframetimer >= 2600:
-        clockframe = 1 - clockframe
-        clockframetimer = 0
-
+    Animation_Time.timer += 1
+    Animation_Time.PlayerAnimation()
+    Animation_Time.clockframetimer += 1
+    Animation_Time.ClockAnimation()
     pygame.display.flip()
 
