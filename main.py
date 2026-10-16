@@ -40,7 +40,15 @@ Falling_cat = pygame.transform.scale(Falling_cat, (100, 100))
 Falling_dog = random.choice([pygame.image.load("img/Doggy1.png").convert_alpha(), pygame.image.load("img/Doggy2.png").convert_alpha(), pygame.image.load("img/Doggy3.png").convert_alpha()])
 Falling_dog = pygame.transform.scale(Falling_dog, (100, 100))
 
+HPcardframe1 = pygame.image.load("img/LifeCardFrame1.png").convert_alpha()
+HPcardframe1 = pygame.transform.scale(HPcardframe1, (100, 100))
+HPcardframe2 = pygame.image.load("img/LifeCardFrame2.png").convert_alpha()
+HPcardframe2 = pygame.transform.scale(HPcardframe2, (100, 100))
+
+HPcardframes = [HPcardframe1, HPcardframe2]
+
 game_state = 1
+Lives = 3
 
 playerframes = [playerFrame1, playerFrame2]
 clockframes = [clockFrame1, clockFrame2]
@@ -50,7 +58,11 @@ start_time = pygame.time.get_ticks()
 
 Quote = ("Skill Issue Noob..")
 Jumping = False
+
+SpawnArea = random.randint(0, 700)
+
 while True:
+    
     current_time = pygame.time.get_ticks()
     elapsed_time = (current_time - start_time) // 1000
     GameTimer = font.render(str(elapsed_time), True, (255, 255, 255))
@@ -72,15 +84,15 @@ while True:
             player_vel_y = 0
 
     if game_state == 1:
-
+        
         window_height = window.get_height()
         if Falling_cat_y > window_height:
             Falling_cat_y = -50
-            Falling_cat_x = random.randint(0, 700)
+            Falling_cat_x = SpawnArea
 
         if Falling_dog_y > window_height:
             Falling_dog_y = -50
-            Falling_dog_x = random.randint(0, 700)        
+            Falling_dog_x = SpawnArea       
 
         player_x += player_vel_x # Updates the Player X pos (Need to place this note here cuz i keep losing it haha)
         player_y += player_vel_y # Updates the Player Y Pos
@@ -99,9 +111,20 @@ while True:
 
 
         if dog_collision.dog_collision_detection(PlayerHitbox, FallingDogHitbox):
-            game_state = 2
+            Lives -= 1
+            print(Lives)
+
+            Falling_dog_y = -100
+            Falling_dog_x = SpawnArea
 
         elif cat_collision.cat_collision_detection(PlayerHitbox, FallingCatHitbox):
+            Lives -= 1
+            print(Lives)
+
+            Falling_cat_y = -100
+            Falling_cat_x = SpawnArea
+
+        if Lives < 1:
             game_state = 2
 
         window.blit(background, (0, 0))
@@ -110,12 +133,21 @@ while True:
         window.blit(Falling_dog, (Falling_dog_x, Falling_dog_y))
         window.blit(GameTimer, (600, 25))
         window.blit(clockframes[Animation_Time.clockframe], (500, 0))
+        
+        HealthCard3 = window.blit(HPcardframes[Animation_Time.clockframe], (180, 500))
+        
+        HealthCard2 = window.blit(HPcardframes[Animation_Time.clockframe], (100, 500))
+       
+        HealthCard1 = window.blit(HPcardframes[Animation_Time.clockframe], (20, 500))
+
 
     elif game_state == 2:
         window.fill((200, 0, 0)) # Game over red background
         Game_over_text = font.render("Game over", True, (255, 255, 255))
         Chosen_quote = font.render(Quote, True, (255, 255, 255))
-
+        Trollface = pygame.image.load("img/Trollface.png").convert_alpha()
+        Trollface = pygame.transform.scale(Trollface, (200, 200))
+        window.blit(Trollface, (250, 350))
         window.blit(Chosen_quote, (250, 300))
         window.blit(Game_over_text, (300, 250))
         player_vel_x = 0

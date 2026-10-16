@@ -1,8 +1,8 @@
 import pygame
 pygame.init()
 
-player_x = 0
-player_y = 380
+player_x = 300
+player_y = 350
 player_vel_x = 0
 player_vel_y = 0
 
