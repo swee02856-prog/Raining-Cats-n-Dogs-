@@ -71,7 +71,8 @@ start_time = pygame.time.get_ticks()
 Quote = ("Skill Issue Noob..")
 Jumping = False
 
-while True:
+Isgamerunning = True
+while Isgamerunning == True:
     
     current_time = pygame.time.get_ticks()
     elapsed_time = (current_time - start_time) // 1000
@@ -81,7 +82,7 @@ while True:
 
         if event.type == pygame.QUIT:
             pygame.quit()
-            exit()
+            Isgamerunning = False
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -95,12 +96,12 @@ while True:
 
     if game_state == 1:
         
-        window_height = window.get_height()
-        if Falling_cat_y > window_height:
+        
+        if Falling_cat_y > window.get_height():
             Falling_cat_y = -50
             Falling_cat_x = random.randint(0, 700)
 
-        if Falling_dog_y > window_height:
+        if Falling_dog_y > window.get_height():
             Falling_dog_y = -50
             Falling_dog_x = random.randint(0, 700)      
 
