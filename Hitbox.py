@@ -10,3 +10,4 @@ def CatHitbox(Falling_cat_x, Falling_cat_y):
 
 def PlayersHitbox(player_x, player_y):
     return pygame.Rect(player_x, player_y, 75, 75)
+

@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('Background.png', '.'), ('PlayerFrame1.png', '.'), ('PlayerFrame2.png', '.'), ('ClockFrame1.png', '.'), ('ClockFrame2.png', '.'), ('Kitty1.png', '.'), ('Kitty2.png', '.'), ('Kitty3.png', '.'), ('Doggy1.png', '.'), ('Doggy2.png', '.'), ('Doggy3.png', '.'), ('LifeCardFrame1.png', '.'), ('LifeCardFrame2.png', '.'), ('Trollface.png', '.')],
+    datas=[('Background.png', '.'), ('PlayerFrame1.png', '.'), ('PlayerFrame2.png', '.'), ('ClockFrame1.png', '.'), ('ClockFrame2.png', '.'), ('Kitty1.png', '.'), ('Kitty2.png', '.'), ('Kitty3.png', '.'), ('Doggy1.png', '.'), ('Doggy2.png', '.'), ('Doggy3.png', '.'), ('LifeCardFrame1.png', '.'), ('LifeCardFrame2.png', '.'), ('Trollface.png', '.'), ('meow.mp3', '.'), ('bark.mp3', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

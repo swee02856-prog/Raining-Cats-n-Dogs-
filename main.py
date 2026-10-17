@@ -21,6 +21,10 @@ from Cat import Falling_cat, Falling_cat_x, Falling_cat_y, Falling_cat_vel_x, Fa
 from PlayerSystem import player, player_x, player_y, player_vel_x, player_vel_y
 from Dog import Falling_dog, Falling_dog_x, Falling_dog_y, Falling_dog_vel_x, Falling_dog_vel_y
 pygame.init()
+pygame.mixer.init()
+
+CatSound = pygame.mixer.Sound(resource_path("meow.mp3"))
+DogSound = pygame.mixer.Sound(resource_path("bark.mp3"))
 
 window = pygame.display.set_mode((800, 600))
 
@@ -71,9 +75,7 @@ start_time = pygame.time.get_ticks()
 Quote = ("Skill Issue Noob..")
 Jumping = False
 
-Isgamerunning = True
-while Isgamerunning == True:
-    
+while True:
     current_time = pygame.time.get_ticks()
     elapsed_time = (current_time - start_time) // 1000
     GameTimer = font.render(str(elapsed_time), True, (255, 255, 255))
@@ -82,7 +84,7 @@ while Isgamerunning == True:
 
         if event.type == pygame.QUIT:
             pygame.quit()
-            Isgamerunning = False
+            exit()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -96,12 +98,12 @@ while Isgamerunning == True:
 
     if game_state == 1:
         
-        
-        if Falling_cat_y > window.get_height():
+        window_height = window.get_height()
+        if Falling_cat_y > window_height:
             Falling_cat_y = -50
             Falling_cat_x = random.randint(0, 700)
 
-        if Falling_dog_y > window.get_height():
+        if Falling_dog_y > window_height:
             Falling_dog_y = -50
             Falling_dog_x = random.randint(0, 700)      
 
@@ -124,6 +126,7 @@ while Isgamerunning == True:
         if dog_collision.dog_collision_detection(PlayerHitbox, FallingDogHitbox):
             Lives -= 1
             print(Lives)
+            DogSound.play()
 
             Falling_dog_y = -100
             Falling_dog_x = random.randint(0, 700)
@@ -131,6 +134,7 @@ while Isgamerunning == True:
         elif cat_collision.cat_collision_detection(PlayerHitbox, FallingCatHitbox):
             Lives -= 1
             print(Lives)
+            CatSound.play()
 
             Falling_cat_y = -100
             Falling_cat_x = random.randint(0, 700)
@@ -170,7 +174,6 @@ while Isgamerunning == True:
         Falling_cat_vel_y = 0
         Falling_dog_vel_x = 0
         Falling_dog_vel_y = 0
-        
 
     Animation_Time.timer += 1
     Animation_Time.PlayerAnimation()
