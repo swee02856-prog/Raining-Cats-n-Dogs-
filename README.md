@@ -3,3 +3,4 @@ Hello this is my first pygame python game! The games idea is the player avoids t
 HOW TO PLAY!!
 simply download the exe file from releases and open it to get right into the game!
 Have fun!
+<img width="799" height="595" alt="Screenshot_64" src="https://github.com/user-attachments/assets/fd784ed9-d72a-4854-99cc-e04153a11357" />
